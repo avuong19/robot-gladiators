@@ -1,24 +1,38 @@
 
+var fightOrSkip = function () {
+    //ask player if they'd like to fight or skip using fightOrSkip function
+    var promptFight = window.prompt ("Would you like to FIGHT or SKIP this battle? Enter FIGHT or Skip to choose");
+    //Enter the conditional recursive function call here!
+    if (promptFight === "" || promptFight === null) {
+        window.alert("You need to provide a valid answer! Please try again.");
+        return fightOrSkip();
+      }
+
+    promptFight = promptFight.toLowerCase ();
+    //if player picks "skip" confirm and stop the loop
+    if (promptFight === "skip" || promptFight === "SKIP") {
+        // confirm player wants to skip
+        var confirmSkip = window.confirm("Are you sure you'd like to quit?");
+    
+        // if yes (true), leave fight
+        if (confirmSkip) {
+          window.alert(playerInfo.name + " has decided to skip this fight. Goodbye!");
+          // subtract money from playerMoney for skipping
+          playerInfo.playerMoney = playerInfo.money - 10;
+          return true;
+          shop();
+        }
+      }
+      return false 
+    }
 
 
 var fight = function(enemy) {
     
     //repeat and execute as long as the enemy robot is alive
     while (enemy.health>0 && playerInfo.health>0){
-     
-    var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter FIGHT or Skip to choose");
-     
-    if (promptFight === "skip" || promptFight==="SKIP"){
-        //Confirm player wants to skip
-    var confirmSkip = window.confirm("Are you sure you'd like to skip?");
-   
-    //if yes (true), leave fight 
-    if (confirmSkip){
-        window.alert (playerInfo.name+ " has decided to skip this fight. Goodbye!");
-    //Substract money from playerInfo.money for skipping
-    playerInfo.money = Math.max(0,playerInfo.money -10);
-    console.log("playerInfo.money", playerInfo.money);
-    break;
+    if( fightOrSkip()){
+        break
     }
 }
     
@@ -36,7 +50,7 @@ var fight = function(enemy) {
     if (enemy.health <=0){
         window.alert (enemy.name+ " has died!");
         playerInfo.money = playerInfo.money +20;
-        break;
+        
     }
 
     else { 
@@ -55,13 +69,13 @@ var fight = function(enemy) {
 
     if (playerInfo.health<=0){
         window.alert(playerInfo.name+ " has died!");
-        break;
+        
     }
     else {
         window.alert(playerInfo.name+" still has "+playerInfo.health+" health left.");
     }
 }
-};
+;
   
 var startGame =function(){
     //Reset player stats
@@ -69,7 +83,7 @@ var startGame =function(){
     
     for (var i=0; i< enemyInfo.length; i++){
     if (playerInfo.health>0){
-        window.alert('welcome to Robot Gladiators! Round ' + (i+1));
+        window.alert("welcome to Robot Gladiators! Round " + (i+1));
         debugger;
     
     var pickedEnemyObj = enemyInfo[i];
